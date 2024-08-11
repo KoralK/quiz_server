@@ -1,26 +1,18 @@
 const express = require('express');
+const fs = require('fs');
 const app = express();
 const port = process.env.PORT || 3000;
 
-// Sample questions
-const questions = [
-  {
-    id: 1,
-    question: "What is the capital of France?",
-    options: ["Paris", "London", "Rome", "Berlin"],
-    answer: "Paris"
-  },
-  {
-    id: 2,
-    question: "What is 2 + 2?",
-    options: ["3", "4", "5", "6"],
-    answer: "4"
-  }
-];
-
 // Endpoint to get quiz questions
 app.get('/questions', (req, res) => {
-  res.json(questions);
+  fs.readFile('questions.json', 'utf8', (err, data) => {
+    if (err) {
+      console.error('Error reading questions file:', err);
+      res.status(500).json({ error: 'Failed to load questions' });
+      return;
+    }
+    res.json(JSON.parse(data));
+  });
 });
 
 app.listen(port, () => {
