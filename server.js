@@ -1,24 +1,24 @@
 const express = require('express');
-const cors = require('cors');
 const app = express();
 const port = process.env.PORT || 3000;
 
-app.use(cors());
-
+// Sample questions
 const questions = [
   {
-    questionText: 'What is the capital of France?',
-    answers: ['Berlin', 'Madrid', 'Paris', 'Lisbon'],
-    correctAnswerIndex: 2,
+    id: 1,
+    question: "What is the capital of France?",
+    options: ["Paris", "London", "Rome", "Berlin"],
+    answer: "Paris"
   },
   {
-    questionText: 'What is 2 + 2?',
-    answers: ['3', '4', '5', '6'],
-    correctAnswerIndex: 1,
-  },
-  // Add more questions here
+    id: 2,
+    question: "What is 2 + 2?",
+    options: ["3", "4", "5", "6"],
+    answer: "4"
+  }
 ];
 
+// Endpoint to get quiz questions
 app.get('/questions', (req, res) => {
   res.json(questions);
 });
